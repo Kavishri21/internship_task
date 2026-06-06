@@ -37,12 +37,19 @@ body {
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
-    padding: 2.5rem;
-    transition: box-shadow 0.2s ease-in-out;
+    padding: 1.5rem; /* Responsive padding for mobile viewports */
+    transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+@media (min-width: 768px) {
+    .custom-card {
+        padding: 2.5rem; /* Larger padding for tablets & desktops */
+    }
 }
 
 .custom-card:hover {
     box-shadow: var(--shadow-md);
+    transform: translateY(-2px); /* Micro-animation lift effect */
 }
 
 .custom-card-header {
@@ -95,12 +102,19 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.925rem;
     padding: 0.625rem 1.25rem;
     border-radius: var(--border-radius);
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+.btn-primary:hover, .btn-primary:active {
     background-color: var(--color-primary-hover) !important;
     border-color: var(--color-primary-hover) !important;
+}
+
+.btn-primary:focus {
+    background-color: var(--color-primary-hover) !important;
+    border-color: var(--color-primary-hover) !important;
+    box-shadow: 0 0 0 3px rgba(249, 87, 56, 0.25) !important;
+    outline: 0;
 }
 
 .btn-outline-secondary {
@@ -110,12 +124,21 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.925rem;
     padding: 0.625rem 1.25rem;
     border-radius: var(--border-radius);
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .btn-outline-secondary:hover {
     background-color: var(--color-bg);
     border-color: var(--color-border);
     color: var(--color-text-main);
+}
+
+.btn-outline-secondary:focus {
+    background-color: var(--color-bg) !important;
+    border-color: var(--color-border) !important;
+    color: var(--color-text-main) !important;
+    box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.15) !important;
+    outline: 0;
 }
 
 /* Alert Boxes */
