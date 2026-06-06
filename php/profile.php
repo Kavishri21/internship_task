@@ -59,15 +59,38 @@ try {
             exit;
         }
 
-        if (empty($dob)) {
+        // Validate date of birth matches Gregorian calendar date
+        $dobDate = DateTime::createFromFormat('Y-m-d', $dob);
+        $errors = DateTime::getLastErrors();
+        $isValidDate = $dobDate && 
+                       ($errors === false || ($errors['warning_count'] === 0 && $errors['error_count'] === 0)) && 
+                       $dobDate->format('Y-m-d') === $dob;
+
+        if (!$isValidDate) {
             http_response_code(400);
-            echo json_encode(['status' => 'error', 'message' => 'Please enter your date of birth.']);
+            echo json_encode(['status' => 'error', 'message' => 'Please enter a valid date of birth (YYYY-MM-DD).']);
             exit;
         }
 
-        if (empty($contact) || strlen($contact) < 7 || strlen($contact) > 20) {
+        $today = new DateTime('today');
+        $minDate = (new DateTime('today'))->modify('-120 years');
+
+        if ($dobDate > $today) {
             http_response_code(400);
-            echo json_encode(['status' => 'error', 'message' => 'Please enter a valid contact number (7-20 characters).']);
+            echo json_encode(['status' => 'error', 'message' => 'Date of birth cannot be in the future.']);
+            exit;
+        }
+
+        if ($dobDate < $minDate) {
+            http_response_code(400);
+            echo json_encode(['status' => 'error', 'message' => 'Date of birth cannot be more than 120 years ago.']);
+            exit;
+        }
+
+        // Validate contact using strict phone regex
+        if (!preg_match('/^\+?[0-9\s\-()]{7,20}$/', $contact)) {
+            http_response_code(400);
+            echo json_encode(['status' => 'error', 'message' => 'Please enter a valid contact number (7-20 characters, containing only numbers, spaces, hyphens, parentheses, or a leading plus sign).']);
             exit;
         }
 
