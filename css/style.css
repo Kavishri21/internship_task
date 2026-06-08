@@ -170,3 +170,12 @@ footer {
     font-size: 0.825rem;
     color: var(--color-text-muted);
 }
+
+.toggle-password:hover {
+    color: var(--color-primary) !important;
+}
+
+.toggle-password:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
