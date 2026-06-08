@@ -2,6 +2,8 @@
 // php/session.php
 // Shared Session Verification and Security Utilities utilizing Redis
 
+require_once __DIR__ . '/env.php';
+
 /**
  * Returns a configured Redis connection instance.
  *
@@ -12,8 +14,17 @@ function getRedisConnection(): Redis
     static $redis = null;
     if ($redis === null) {
         $redis = new Redis();
-        // Connect to local Redis instance (Standard port 6379)
-        $redis->connect('127.0.0.1', 6379);
+        
+        $redisHost = getenv('REDIS_HOST') ?: '127.0.0.1';
+        $redisPort = (int)(getenv('REDIS_PORT') ?: 6379);
+        $redisPass = getenv('REDIS_PASSWORD') ?: null;
+
+        // Connect to Redis instance
+        $redis->connect($redisHost, $redisPort);
+        
+        if ($redisPass !== null && $redisPass !== '') {
+            $redis->auth($redisPass);
+        }
     }
     return $redis;
 }

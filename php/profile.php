@@ -12,8 +12,9 @@ $user = requireAuth(true);
 $method = $_SERVER['REQUEST_METHOD'];
 
 try {
-    // 2. Establish connection to local MongoDB
-    $manager = new MongoDB\Driver\Manager("mongodb://127.0.0.1:27017");
+    // 2. Establish connection to MongoDB via environment URI or default
+    $mongoUri = getenv('MONGODB_URI') ?: "mongodb://127.0.0.1:27017";
+    $manager  = new MongoDB\Driver\Manager($mongoUri);
 
     if ($method === 'GET') {
         // --- READ OPERATION ---

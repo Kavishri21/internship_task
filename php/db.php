@@ -2,10 +2,12 @@
 // php/db.php
 // Centralized Database Connection Helper using PDO
 
-$host = '127.0.0.1';
-$db   = 'internship_db';
-$user = 'root';
-$pass = 'Kavi@2110';
+require_once __DIR__ . '/env.php';
+
+$host = getenv('MYSQL_HOST') ?: '127.0.0.1';
+$db   = getenv('MYSQL_DB') ?: 'internship_db';
+$user = getenv('MYSQL_USER') ?: 'root';
+$pass = getenv('MYSQL_PASS') ?: 'Kavi@2110';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
