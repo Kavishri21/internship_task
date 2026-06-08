@@ -102,8 +102,9 @@ $(document).ready(function() {
             return;
         }
 
-        if (!contact || contact.length < 7 || contact.length > 20) {
-            showAlert('error', 'Please enter a valid contact number (7-20 characters).');
+        const contactPattern = /^\d{10}$/;
+        if (!contact || !contactPattern.test(contact)) {
+            showAlert('error', 'Please enter a valid 10-digit contact number.');
             return;
         }
 
