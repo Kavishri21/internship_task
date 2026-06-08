@@ -7,7 +7,7 @@ require_once __DIR__ . '/env.php';
 $host = getenv('MYSQL_HOST') ?: '127.0.0.1';
 $db   = getenv('MYSQL_DB') ?: 'internship_db';
 $user = getenv('MYSQL_USER') ?: 'root';
-$pass = getenv('MYSQL_PASS') ?: 'Kavi@2110';
+$pass = getenv('MYSQL_PASS') ?: null;
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
