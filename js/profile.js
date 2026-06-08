@@ -1,10 +1,6 @@
-// js/profile.js
-// Client-side profile dashboard coordinator utilizing jQuery AJAX
-
 $(document).ready(function() {
     const token = localStorage.getItem('session_token');
 
-    // If no token exists on load, push to login immediately
     if (!token) {
         window.location.href = 'login.html';
         return;
@@ -15,7 +11,6 @@ $(document).ready(function() {
     const $alertContainer = $('#alert-container');
     const $alertMessage = $('#alert-message');
 
-    // Helper to display alert box messages
     function showAlert(type, message) {
         $alertContainer.removeClass('d-none');
         $alertMessage.removeClass('alert-danger alert-success');
@@ -29,12 +24,10 @@ $(document).ready(function() {
         $alertMessage.text(message);
     }
 
-    // Helper to hide alert box
     function hideAlert() {
         $alertContainer.addClass('d-none');
     }
 
-    // --- 1. Load User Profile Details ---
     function loadProfile() {
         $.ajax({
             url: 'php/profile.php',
@@ -47,15 +40,12 @@ $(document).ready(function() {
                 if (response.status === 'success' && response.data) {
                     const data = response.data;
 
-                    // Bind user header attributes
                     $('#navbar-user-email').text(data.email);
                     $('#welcome-name').text(data.name);
 
-                    // Bind overview details text
                     $('#profile-name').text(data.name);
                     $('#profile-email').text(data.email);
 
-                    // Handle age binding
                     if (data.age) {
                         $('#profile-age').text(data.age);
                         $('#age').val(data.age);
@@ -64,7 +54,6 @@ $(document).ready(function() {
                         $('#age').val('');
                     }
 
-                    // Handle date of birth binding
                     if (data.dob) {
                         $('#profile-dob').text(data.dob);
                         $('#dob').val(data.dob);
@@ -73,7 +62,6 @@ $(document).ready(function() {
                         $('#dob').val('');
                     }
 
-                    // Handle contact binding
                     if (data.contact) {
                         $('#profile-contact').text(data.contact);
                         $('#contact').val(data.contact);
@@ -84,7 +72,6 @@ $(document).ready(function() {
                 }
             },
             error: function(xhr) {
-                // If unauthorized (401), session is expired or deleted; kick to login
                 if (xhr.status === 401) {
                     localStorage.removeItem('session_token');
                     window.location.href = 'login.html';
@@ -95,10 +82,8 @@ $(document).ready(function() {
         });
     }
 
-    // Run initial load
     loadProfile();
 
-    // --- 2. Profile Details Form Submission ---
     $form.on('submit', function(e) {
         e.preventDefault();
         hideAlert();
@@ -107,7 +92,6 @@ $(document).ready(function() {
         const dob = $('#dob').val();
         const contact = $('#contact').val().trim();
 
-        // Client validation
         if (isNaN(age) || age < 1 || age > 120) {
             showAlert('error', 'Please enter a valid age (1-120).');
             return;
@@ -123,7 +107,6 @@ $(document).ready(function() {
             return;
         }
 
-        // Prevent double submit
         $submitBtn.prop('disabled', true).text('Saving Profile Details...');
 
         $.ajax({
@@ -141,8 +124,6 @@ $(document).ready(function() {
             success: function(response) {
                 showAlert('success', response.message);
                 $submitBtn.prop('disabled', false).text('Save Profile Details');
-                
-                // Refresh table details after saving
                 loadProfile();
             },
             error: function(xhr) {
@@ -163,14 +144,9 @@ $(document).ready(function() {
         });
     });
 
-    // --- 3. Logout Request Action ---
     $('#logoutBtn').on('click', function(e) {
         e.preventDefault();
-        
-        // Clear bearer token
         localStorage.removeItem('session_token');
-        
-        // Push user to sign in
         window.location.href = 'login.html';
     });
 });

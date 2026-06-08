@@ -1,25 +1,20 @@
-/* css/style.css */
-/* Shared Stylesheet for User Profile Management System */
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     
-    /* Sunset Orange Color Palette */
-    --color-bg: #fdfaf7;        /* Warm soft off-white background */
+    --color-bg: #fdfaf7;        
     --color-card-bg: #ffffff;
-    --color-text-main: #1e293b;  /* Slate-800: Soft dark for text */
-    --color-text-muted: #64748b; /* Slate-500: Muted text */
-    --color-primary: #f95738;    /* Sunset Orange */
-    --color-primary-hover: #e03f20; /* Darker sunset for hover */
-    --color-border: #e2e8f0;     /* Soft grey border */
-    --color-border-focus: #f95738; /* Sunset focus */
+    --color-text-main: #1e293b;
+    --color-text-muted: #64748b;
+    --color-primary: #f95738;
+    --color-primary-hover: #e03f20;
+    --color-border: #e2e8f0;
+    --color-border-focus: #f95738;
     
-    /* Layout & Shadow tokens */
     --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    --border-radius: 4px;       /* Sharper, cleaner border-radius */
+    --border-radius: 4px;
 }
 
 body {
@@ -31,25 +26,24 @@ body {
     flex-direction: column;
 }
 
-/* Custom Card Layout */
 .custom-card {
     background-color: var(--color-card-bg);
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
-    padding: 1.5rem; /* Responsive padding for mobile viewports */
+    padding: 1.5rem;
     transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
 @media (min-width: 768px) {
     .custom-card {
-        padding: 2.5rem; /* Larger padding for tablets & desktops */
+        padding: 2.5rem;
     }
 }
 
 .custom-card:hover {
     box-shadow: var(--shadow-md);
-    transform: translateY(-2px); /* Micro-animation lift effect */
+    transform: translateY(-2px);
 }
 
 .custom-card-header {
@@ -58,7 +52,6 @@ body {
     padding-bottom: 1rem;
 }
 
-/* Typography Overrides */
 h1, h2, h3, h4, h5, h6 {
     color: var(--color-text-main);
     font-weight: 600;
@@ -69,7 +62,6 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--color-primary) !important;
 }
 
-/* Bootstrap Inputs Restyling */
 .form-control, .form-select {
     font-size: 0.925rem;
     padding: 0.625rem 0.875rem;
@@ -94,7 +86,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0.5rem;
 }
 
-/* Button Restyling */
 .btn-primary {
     background-color: var(--color-primary);
     border-color: var(--color-primary);
@@ -141,7 +132,6 @@ h1, h2, h3, h4, h5, h6 {
     outline: 0;
 }
 
-/* Alert Boxes */
 .alert {
     border-radius: var(--border-radius);
     font-size: 0.875rem;
@@ -160,7 +150,6 @@ h1, h2, h3, h4, h5, h6 {
     color: #166534;
 }
 
-/* Navigation bar */
 .custom-navbar {
     background-color: #ffffff;
     border-bottom: 1px solid var(--color-border);
@@ -173,7 +162,6 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--color-primary) !important;
 }
 
-/* Footer styling */
 footer {
     margin-top: auto;
     background-color: #ffffff;
